@@ -9,6 +9,7 @@
   --text-muted: #c1cbe0;
   --accent: #58a6ff;
   --accent-strong: #76c0ff;
+  --ease-out: cubic-bezier(0.18, 0.8, 0.2, 1);
 }
 
 /* Shared body theme applied across most pages */
@@ -52,6 +53,30 @@ a:hover {
 .navbar .nav-link:hover,
 .dropdown-item:hover {
   color: var(--accent) !important;
+}
+.navbar .nav-link {
+  position: relative;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  transition: color 0.2s var(--ease-out), background 0.2s var(--ease-out);
+}
+.navbar .nav-link:hover {
+  background: rgba(88,166,255,0.12);
+}
+.navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 6px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(88,166,255,0), rgba(88,166,255,0.9), rgba(88,166,255,0));
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out);
+}
+.navbar .nav-link:hover::after {
+  opacity: 0.9;
 }
 
 /* Neon glass cards to mirror auth pages */
@@ -109,6 +134,61 @@ a:hover {
   transform: translateY(-1px);
   box-shadow: 0 14px 32px rgba(15,176,255,0.42);
 }
+.btn,
+.btn-outline-primary,
+.btn-primary,
+.btn-ghost,
+.btn-cta {
+  transition: transform 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out), border-color 0.18s var(--ease-out);
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.page-shell,
+.card,
+.modal-content,
+.list-group-item {
+  animation: riseIn 520ms var(--ease-out) both;
+}
+.glass-card,
+.product-card,
+.trade-card,
+.notification-card {
+  animation: riseIn 560ms var(--ease-out) both;
+}
+.hero-panel,
+.trade-hero {
+  animation: riseIn 620ms var(--ease-out) both;
+}
+
+.reveal-delay-1 { animation-delay: 80ms; }
+.reveal-delay-2 { animation-delay: 160ms; }
+.reveal-delay-3 { animation-delay: 240ms; }
+.reveal-delay-4 { animation-delay: 320ms; }
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes softGlow {
+  0% { box-shadow: 0 0 0 rgba(88,166,255,0); }
+  50% { box-shadow: 0 0 22px rgba(88,166,255,0.35); }
+  100% { box-shadow: 0 0 0 rgba(88,166,255,0); }
+}
+
+.glow-on-load {
+  animation: softGlow 1.2s ease 0.2s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
 .btn-outline-primary {
   color: var(--accent);
   border-color: rgba(88, 166, 255, 0.6);
@@ -117,6 +197,27 @@ a:hover {
 .btn-outline-primary:hover {
   background: var(--accent);
   color: #020710;
+}
+
+/* Polished nav button style used across pages */
+.btn-cta.btn-minimal {
+  border-radius: 999px;
+  padding: 0.38rem 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(6, 12, 22, 0.6);
+  color: var(--text-strong) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+  backdrop-filter: blur(12px);
+}
+.btn-cta.btn-minimal:hover {
+  border-color: rgba(88,166,255,0.6);
+  box-shadow: 0 14px 28px rgba(15,176,255,0.28);
+  color: #ffffff !important;
+}
+.btn-cta.btn-minimal:focus {
+  box-shadow: 0 0 0 0.18rem rgba(88,166,255,0.2);
 }
 
 /* Page-level shell to mirror neon auth panels */
